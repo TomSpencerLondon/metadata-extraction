@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Lambda function for the metadata extraction of a photo
+Parameters:
+  envType:
+    Type: String
+Resources:
+  lambdaMetadataExtraction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub metadata-extraction-${envType}
+      Handler: metadata_extraction.lambda_handler
+      Runtime: python3.8
+      CodeUri: .
+      MemorySize: 1024
+      Timeout: 30
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/metadata-extraction-lambda-execution-role
